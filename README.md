@@ -20,10 +20,11 @@ This app is was built with Nextjs, tailwind and other libraries
 
 - Create user.
 - login/logout user.
-- Server side validation.
-- Password hashing with bycryptjs.
+- Email and password validation at client.
 - create new contacts.
+- client validation for contacts details.
 - fetch all existing contacts.
+- search functionality for getting a specific contact.
 - edit a single contact.
 - delete a single contact.
 - contacts are a protected route that can only be viewed by an authenticated user.

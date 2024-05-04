@@ -24,6 +24,7 @@ function ContactsPage({}: Props) {
     lastName: "",
     phone: "",
   });
+  const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
 
   // useEffect(() => {
@@ -49,6 +50,21 @@ function ContactsPage({}: Props) {
       router.push("/login");
     }
   }, []);
+
+  const handleSearchSubmit = (event: any) => {
+    event.preventDefault();
+    const newSearchContacts = contacts.filter((contact) =>
+      contact.firstName.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+    console.log(newSearchContacts);
+    setContacts(newSearchContacts);
+  };
+
+  const newSearchInput = (event: any) => {
+    setSearchInput(event.target.value);
+    fetchContacts();
+  };
 
   const openDeleteModal = (contact: IContact) => {
     setActiveContact(contact);
@@ -112,7 +128,7 @@ function ContactsPage({}: Props) {
     <div className="h-[100vh] text-black mx-auto flex flex-col items-center">
       <ToastContainer autoClose={1000} />
       <h1 className="font-semibold text-xl p-5 mt-5">
-        Your {contacts.length} Contacts
+        You have {contacts.length} Contacts
       </h1>
       {/* <hr className="mb-4 border-black" /> */}
       {/* <i>{user.username}</i> */}
@@ -120,6 +136,26 @@ function ContactsPage({}: Props) {
         <Spinner />
       ) : (
         <div className="overflow-x-auto tableWrap">
+          <form
+            action=""
+            onSubmit={handleSearchSubmit}
+            className="flex items-baseline justify-center w-full mx-auto max-w-[1000px]"
+          >
+            <input
+              type="text"
+              name="searchInput"
+              id="searchInput"
+              className="outline-none border  rounded-md rounded-r-none bg-gray-200 w-4/5 p-2 mb-4"
+              placeholder="Search Contacts..."
+              value={searchInput}
+              onChange={newSearchInput}
+            />
+            <input
+              type="submit"
+              value="Search"
+              className="rounded-md p-1 bg-cyan-400 cursor-pointer w-1/5 h-10 rounded-l-none font-semibold"
+            />
+          </form>
           {contacts.length == 0 ? (
             <h3 className="mx-auto flex flex-col items-center italic">
               No contacts created yet.{" "}

@@ -22,6 +22,7 @@ function LoginPage({}: Props) {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -38,7 +39,11 @@ function LoginPage({}: Props) {
   };
 
   useEffect(() => {
-    user && router.push("/contacts");
+    try {
+      user && router.push("/contacts");
+    } catch (error: any) {
+      setError(error);
+    }
   }, []);
 
   const handleSubmit = (event: any) => {
@@ -58,6 +63,7 @@ function LoginPage({}: Props) {
   return (
     <>
       <ToastContainer autoClose={2000} />
+      <i className="text-red-500 italic text-xs">{error}</i>
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-gray-50  flex items-center rounded-xl shadow-lg max-w-3xl p-5 py">
           <div className="w-full md:w-1/2 flex flex-col space-y-5 p-5">
