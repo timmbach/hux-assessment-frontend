@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AddContactButton from "./AddContactButton";
 import UserNav from "./UserNav";
 import { useAuth } from "@/app/context/AuthContext";
@@ -11,6 +11,9 @@ type Props = {};
 
 function Navbar({}: Props) {
   const { user } = useAuth();
+
+  useEffect(() => {}, [user]);
+
   return (
     <nav className="w-full fixed top-0 left-0 py-3 border-b bg-cyan-100 shadow-md z-10">
       <div className="max-w-[1500px] mx-auto px-6">

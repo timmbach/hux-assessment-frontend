@@ -8,6 +8,7 @@ import DeleteConfirmModal from "../components/contacts/DeleteConfirmModal";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 type Props = {};
 
@@ -110,7 +111,9 @@ function ContactsPage({}: Props) {
   return (
     <div className="h-[100vh] text-black mx-auto flex flex-col items-center">
       <ToastContainer autoClose={1000} />
-      <h1 className="font-semibold text-xl p-5 mt-5">Your Contacts</h1>
+      <h1 className="font-semibold text-xl p-5 mt-5">
+        Your {contacts.length} Contacts
+      </h1>
       {/* <hr className="mb-4 border-black" /> */}
       {/* <i>{user.username}</i> */}
       {loading ? (
@@ -118,7 +121,9 @@ function ContactsPage({}: Props) {
       ) : (
         <div className="overflow-x-auto tableWrap">
           {contacts.length == 0 ? (
-            <h3>No contacts created yet. </h3>
+            <h3 className="mx-auto flex flex-col items-center italic">
+              No contacts created yet.{" "}
+            </h3>
           ) : (
             <table className="min-w-full bg-white border border-gray-200">
               <thead className="sticky top-0">
@@ -165,22 +170,24 @@ function ContactsPage({}: Props) {
                       </div>
                     </td>
                     <td className="flex items-center gap-2 px-6 py-6 whitespace-no-wrap text-right border-b border-gray-200 text-sm font-medium">
-                      <button className="cursor-pointer p-1 hover:bg-blue-400/40 rounded-md">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="bi bi-pencil-square cursor-pointer"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                          <path
-                            fillRule="evenodd"
-                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
-                          />
-                        </svg>
-                      </button>
+                      <Link href={`contacts/edit/${contact._id}`}>
+                        <button className="cursor-pointer p-1 hover:bg-blue-400/40 rounded-md">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-pencil-square cursor-pointer"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                            <path
+                              fillRule="evenodd"
+                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
+                            />
+                          </svg>
+                        </button>
+                      </Link>
                       <button
                         onClick={() => openDeleteModal(contact)}
                         className="cursor-pointer p-1 hover:bg-red-400 rounded-md"
